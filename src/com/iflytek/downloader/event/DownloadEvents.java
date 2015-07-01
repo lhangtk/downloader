@@ -4,7 +4,7 @@ package com.iflytek.downloader.event;
 /**
  * Created by hangli2 on 2015/3/23.
  */
-public class BaseEvents {
+public class DownloadEvents {
 
     private Object data;
 
@@ -19,12 +19,12 @@ public class BaseEvents {
         return type;
     }
 
-    public BaseEvents(int type) {
+    public DownloadEvents(int type) {
         super();
         this.type = type;
     }
 
-    public BaseEvents(int type, Object data) {
+    public DownloadEvents(int type, Object data) {
         super();
         this.type = type;
         this.data = data;

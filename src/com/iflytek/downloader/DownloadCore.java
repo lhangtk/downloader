@@ -1,6 +1,6 @@
 package com.iflytek.downloader;
 
-import com.iflytek.downloader.event.BaseEvents;
+import com.iflytek.downloader.event.DownloadEvents;
 import com.iflytek.downloader.event.EventsConfig;
 import com.iflytek.downloader.util.FileUtil;
 import de.greenrobot.event.EventBus;
@@ -27,7 +27,7 @@ public class DownloadCore extends Thread{
         private int tryTimes;
 
         private volatile boolean pauseFlag;
-        private volatile boolean stopFlag;
+        public volatile boolean stopFlag;
 
         private String filePath;
 
@@ -71,7 +71,7 @@ public class DownloadCore extends Thread{
 
                     conn.connect();
 
-                    task.setFileSavePath(filePath);
+//                    task.setFileSavePath(filePath);
                     if (task.getTotalSize() == 0) {
                         task.setTotalSize(conn.getContentLength());
                     }
@@ -111,23 +111,26 @@ public class DownloadCore extends Thread{
                             task.setCurrentSize(current);
                             task.setSpeed(speed);
 //                            manager.onUpdateDownloadTask(task);
-                            EventBus.getDefault().post(new BaseEvents(EventsConfig.DOWNLOAD_UPDATE,task));
+                            EventBus.getDefault().post(new DownloadEvents(EventsConfig.DOWNLOAD_UPDATE,task));
+//                            MyBroadcast.getLocalBroadcastManager().sendBroadcast(new Intent("Action"));
                         }
                     }
+                    //关闭流
+                    is.close();
                     task.setCurrentSize(current);
 
                     if (stopFlag) {
 //                        manager.onDownloadCanceled(task);
                     } else {
 //                        manager.onDownloadSuccessed(task);
-                        EventBus.getDefault().post(new BaseEvents(EventsConfig.DOWNLOAD_SUCCESS));
+                        EventBus.getDefault().post(new DownloadEvents(EventsConfig.DOWNLOAD_SUCCESS,task));
                     }
                     break;
                 } catch (IOException e) {
                     e.printStackTrace();
                     if (tryTimes > DownloadConfig.getInstance().getRetryTime()) {
 //                        manager.onDownloadFailed(task);
-                        EventBus.getDefault().post(new BaseEvents(EventsConfig.DOWNLOAD_FAILURE));
+                        EventBus.getDefault().post(new DownloadEvents(EventsConfig.DOWNLOAD_FAILURE,task));
                         break;
                     } else {
                         tryTimes++;

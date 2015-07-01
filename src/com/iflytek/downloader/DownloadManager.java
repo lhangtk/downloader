@@ -13,6 +13,10 @@ public class DownloadManager {
     }
 
     public void addTask(DownloadTask task){
+//        if (task.getDownloadCore().stopFlag){
+//            task.setDownloadCore(new DownloadCore(task));
+//        }
+        task.reCreateTask();
         pool.submit(task.getDownloadCore());
     }
 

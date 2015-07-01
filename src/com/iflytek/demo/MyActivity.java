@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.iflytek.downloader.DownloadManager;
 import com.iflytek.downloader.DownloadTask;
 import com.iflytek.downloader.R;
-import com.iflytek.downloader.event.BaseEvents;
+import com.iflytek.downloader.event.DownloadEvents;
 import com.iflytek.downloader.event.EventsConfig;
 import de.greenrobot.event.EventBus;
 
@@ -22,26 +22,18 @@ public class MyActivity extends Activity {
     private Button buttonDownload1;
     private Button buttonDownload2;
     private Button buttonDownload3;
-    private Button buttonDownload4;
-    private Button buttonDownload5;
     private Button buttonCancel;
     private Button buttonCancel1;
     private Button buttonCancel2;
     private Button buttonCancel3;
-    private Button buttonCancel4;
-    private Button buttonCancel5;
     DownloadTask task;
     DownloadTask task1;
     DownloadTask task2;
     DownloadTask task3;
-    DownloadTask task4;
-    DownloadTask task5;
     ProgressBar progressBar;
     ProgressBar progressBar1;
     ProgressBar progressBar2;
     ProgressBar progressBar3;
-    ProgressBar progressBar4;
-    ProgressBar progressBar5;
     DownloadManager manager;
 
     @Override
@@ -65,26 +57,36 @@ public class MyActivity extends Activity {
         buttonCancel3 = (Button) findViewById(R.id.cancel3);
         progressBar3 = (ProgressBar) findViewById(R.id.progressBar3);
         progressBar3.setMax(100);
-        buttonDownload4 = (Button) findViewById(R.id.start4);
-        buttonCancel4 = (Button) findViewById(R.id.cancel4);
-        progressBar4 = (ProgressBar) findViewById(R.id.progressBar4);
-        progressBar4.setMax(100);
-        buttonDownload5 = (Button) findViewById(R.id.start5);
-        buttonCancel5 = (Button) findViewById(R.id.cancel5);
-        progressBar5 = (ProgressBar) findViewById(R.id.progressBar5);
-        progressBar5.setMax(100);
 
         manager = new DownloadManager();
-
+        //任务0
+        task = new DownloadTask();
+        task.setId("0");
+        task.setUrl("http://p.gdown.baidu.com/87a32d31ed1b9023035612f950807ced97d81dd9da16bd5b0ae792421aed417886f3e9852127733d6cfc0e22005fa71a1eb3df963cb798e71094c36beb04008b913716f9a2a73195ae6925abec9e114f1efc59ea03b4ba9efdbe42168a7143c2c1250aa4f4faf971952a88ca12444b910b7ed899288972d6204acb2ece91a93b42beb268952e986d447a0bcd612704fc091db3acdec1351d6535fae331d9aaf9c5848237db1bbb8189187b167a53f4a5c57d2660614f3e30");
+        task.setFileName("abc");
+        task.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
+        //任务1
+        task1 = new DownloadTask();
+        task1.setId("1");
+        task1.setUrl("http://p.gdown.baidu.com/87a32d31ed1b9023035612f950807ced97d81dd9da16bd5b0ae792421aed417886f3e9852127733d6cfc0e22005fa71a1eb3df963cb798e71094c36beb04008b913716f9a2a73195ae6925abec9e114f1efc59ea03b4ba9efdbe42168a7143c2c1250aa4f4faf971952a88ca12444b910b7ed899288972d6204acb2ece91a93b42beb268952e986d447a0bcd612704fc091db3acdec1351d6535fae331d9aaf9c5848237db1bbb8189187b167a53f4a5c57d2660614f3e30");
+        task1.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
+        //任务2
+        task2 = new DownloadTask();
+        task2.setId("2");
+        task2.setUrl("http://p.gdown.baidu.com/87a32d31ed1b9023035612f950807ced97d81dd9da16bd5b0ae792421aed417886f3e9852127733d6cfc0e22005fa71a1eb3df963cb798e71094c36beb04008b913716f9a2a73195ae6925abec9e114f1efc59ea03b4ba9efdbe42168a7143c2c1250aa4f4faf971952a88ca12444b910b7ed899288972d6204acb2ece91a93b42beb268952e986d447a0bcd612704fc091db3acdec1351d6535fae331d9aaf9c5848237db1bbb8189187b167a53f4a5c57d2660614f3e30");
+        task2.setFileName("abc2");
+        task2.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
+        //任务3
+        task3 = new DownloadTask();
+        task3.setId("3");
+        task3.setUrl("http://p.gdown.baidu.com/87a32d31ed1b9023035612f950807ced97d81dd9da16bd5b0ae792421aed417886f3e9852127733d6cfc0e22005fa71a1eb3df963cb798e71094c36beb04008b913716f9a2a73195ae6925abec9e114f1efc59ea03b4ba9efdbe42168a7143c2c1250aa4f4faf971952a88ca12444b910b7ed899288972d6204acb2ece91a93b42beb268952e986d447a0bcd612704fc091db3acdec1351d6535fae331d9aaf9c5848237db1bbb8189187b167a53f4a5c57d2660614f3e30");
+        task3.setFileName("abc3");
+        task3.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
         buttonDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (buttonDownload.getText().toString().equals("开始")) {
                     buttonDownload.setText("暂停");
-                    task = new DownloadTask();
-                    task.setUrl("http://ftp-apk.pconline.com.cn/f02d18c619e856e07a4e2392dcc88203/pub/download/201010/MicrosoftOfficeMobile_v15.0.3722.2000.apk");
-                    task.setFileName("abc");
-                    task.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
                     manager.addTask(task);
                 } else if (buttonDownload.getText().toString().equals("暂停")) {
                     buttonDownload.setText("继续");
@@ -109,10 +111,6 @@ public class MyActivity extends Activity {
             public void onClick(View view) {
                 if (buttonDownload1.getText().toString().equals("开始")) {
                     buttonDownload1.setText("暂停");
-                    task1 = new DownloadTask();
-                    task1.setUrl("http://ftp-apk.pconline.com.cn/f02d18c619e856e07a4e2392dcc88203/pub/download/201010/MicrosoftOfficeMobile_v15.0.3722.2000.apk");
-                    task1.setFileName("abc1");
-                    task1.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
                     manager.addTask(task1);
                 } else if (buttonDownload1.getText().toString().equals("暂停")) {
                     buttonDownload1.setText("继续");
@@ -137,10 +135,7 @@ public class MyActivity extends Activity {
             public void onClick(View view) {
                 if (buttonDownload2.getText().toString().equals("开始")) {
                     buttonDownload2.setText("暂停");
-                    task2 = new DownloadTask();
-                    task2.setUrl("http://ftp-apk.pconline.com.cn/f02d18c619e856e07a4e2392dcc88203/pub/download/201010/MicrosoftOfficeMobile_v15.0.3722.2000.apk");
-                    task2.setFileName("abc2");
-                    task2.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
+
                     manager.addTask(task2);
                 } else if (buttonDownload2.getText().toString().equals("暂停")) {
                     buttonDownload2.setText("继续");
@@ -165,10 +160,6 @@ public class MyActivity extends Activity {
             public void onClick(View view) {
                 if (buttonDownload3.getText().toString().equals("开始")) {
                     buttonDownload3.setText("暂停");
-                    task3 = new DownloadTask();
-                    task3.setUrl("http://ftp-apk.pconline.com.cn/f02d18c619e856e07a4e2392dcc88203/pub/download/201010/MicrosoftOfficeMobile_v15.0.3722.2000.apk");
-                    task3.setFileName("abc3");
-                    task3.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
                     manager.addTask(task3);
                 } else if (buttonDownload3.getText().toString().equals("暂停")) {
                     buttonDownload3.setText("继续");
@@ -188,62 +179,17 @@ public class MyActivity extends Activity {
                 manager.cancel(task3);
             }
         });
-        buttonDownload4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (buttonDownload4.getText().toString().equals("开始")) {
-                    buttonDownload4.setText("暂停");
-                    task4 = new DownloadTask();
-                    task4.setUrl("http://ftp-apk.pconline.com.cn/f02d18c619e856e07a4e2392dcc88203/pub/download/201010/MicrosoftOfficeMobile_v15.0.3722.2000.apk");
-                    task4.setFileName("abc4");
-                    task4.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
-                    manager.addTask(task4);
-                } else if (buttonDownload4.getText().toString().equals("暂停")) {
-                    buttonDownload4.setText("继续");
-                    manager.pause(task4);
-                } else if (buttonDownload4.getText().toString().equals("继续")) {
-                    buttonDownload4.setText("暂停");
-                    manager.resume(task4);
-                }
 
-            }
-        });
-        buttonCancel4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                buttonDownload4.setText("开始");
-                progressBar4.setProgress(0);
-                manager.cancel(task4);
-            }
-        });
-        buttonDownload5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (buttonDownload5.getText().toString().equals("开始")) {
-                    buttonDownload5.setText("暂停");
-                    task5 = new DownloadTask();
-                    task5.setUrl("http://ftp-apk.pconline.com.cn/f02d18c619e856e07a4e2392dcc88203/pub/download/201010/MicrosoftOfficeMobile_v15.0.3722.2000.apk");
-                    task5.setFileName("abc5");
-                    task5.setFileSavePath(Environment.getExternalStorageDirectory().getPath() + "/downloader/");
-                    manager.addTask(task5);
-                } else if (buttonDownload5.getText().toString().equals("暂停")) {
-                    buttonDownload5.setText("继续");
-                    manager.pause(task5);
-                } else if (buttonDownload5.getText().toString().equals("继续")) {
-                    buttonDownload5.setText("暂停");
-                    manager.resume(task5);
-                }
-
-            }
-        });
-        buttonCancel5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                buttonDownload5.setText("开始");
-                progressBar5.setProgress(0);
-                manager.cancel(task5);
-            }
-        });
+//        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(MyActivity.this);
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("Action");
+//        localBroadcastManager.registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Log.e("registerReceiver","registerReceiver");
+//            }
+//        },filter);
+//        MyBroadcast.setLocalBroadcastManager(localBroadcastManager);
     }
 
     @Override
@@ -252,7 +198,7 @@ public class MyActivity extends Activity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEventMainThread(BaseEvents event) {
+    public void onEventMainThread(DownloadEvents event) {
         switch (event.getType()) {
             case EventsConfig.DOWNLOAD_SUCCESS:
                 Toast.makeText(MyActivity.this, "DOWNLOAD_SUCCESS", Toast.LENGTH_SHORT).show();
@@ -262,12 +208,16 @@ public class MyActivity extends Activity {
                 Toast.makeText(MyActivity.this, "DOWNLOAD_FAILURE", Toast.LENGTH_SHORT).show();
                 break;
             case EventsConfig.DOWNLOAD_UPDATE:
-                progressBar.setProgress((int) (task.getCurrentSize()*100 / task.getTotalSize()));
-                progressBar1.setProgress((int) (task1.getCurrentSize()*100 / task1.getTotalSize()));
-                progressBar2.setProgress((int) (task2.getCurrentSize()*100 / task2.getTotalSize()));
-                progressBar3.setProgress((int) (task3.getCurrentSize()*100 / task3.getTotalSize()));
-                progressBar4.setProgress((int) (task4.getCurrentSize()*100 / task4.getTotalSize()));
-                progressBar5.setProgress((int) (task5.getCurrentSize()*100 / task5.getTotalSize()));
+                DownloadTask downloadTask = (DownloadTask) event.getData();
+                if (downloadTask.getId().equals("0")) {
+                    progressBar.setProgress((int) (downloadTask.getCurrentSize() * 100 / downloadTask.getTotalSize()));
+                } else if (downloadTask.getId().equals("1")) {
+                    progressBar1.setProgress((int) (downloadTask.getCurrentSize() * 100 / downloadTask.getTotalSize()));
+                } else if (downloadTask.getId().equals("2")) {
+                    progressBar2.setProgress((int) (downloadTask.getCurrentSize() * 100 / downloadTask.getTotalSize()));
+                } else if (downloadTask.getId().equals("3")) {
+                    progressBar3.setProgress((int) (downloadTask.getCurrentSize() * 100 / downloadTask.getTotalSize()));
+                }
                 break;
         }
     }

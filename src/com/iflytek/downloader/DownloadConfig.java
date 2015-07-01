@@ -26,7 +26,7 @@ public class DownloadConfig {
 //        }
         maxThread = 2;
         retryTime = 5;
-        timeOut = 30000;//默认超时时间为3秒
+        timeOut = 30*1000;//默认超时时间为30秒
     }
 
     public static DownloadConfig getInstance(){

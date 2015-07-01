@@ -49,8 +49,19 @@ public class DownloadTask {
         }
     }
 
+    public void reCreateTask(){
+        totalSize = 0;
+        currentSize = 0;
+        speed = 0;
+        downloadCore = new DownloadCore(this);
+    }
+
     public DownloadCore getDownloadCore() {
         return downloadCore;
+    }
+
+    public void setDownloadCore(DownloadCore downloadCore) {
+        this.downloadCore = downloadCore;
     }
 
     public String getFileName() {
@@ -112,4 +123,5 @@ public class DownloadTask {
     public void setUrl(String url) {
         this.url = url;
     }
+
 }
